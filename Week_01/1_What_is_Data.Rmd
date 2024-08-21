@@ -818,12 +818,11 @@ b
 
 ### Run through these data carpentry lessons before next Tuesday for an intro/refresher in R.
 
-Click on the links below
+Click on the link below
 
-[Home](https://datacarpentry.org/R-ecology-lesson/index.html)  
-[Before we start](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html)  
-[Introduction to R](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html)  
-[Starting with data](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html)  
+This is not graded, but if you do not complete it this week you will fall behind.
+
+[Data Analysis and Visualization R](https://datacarpentry.org/R-ecology-lesson-alternative/index.html)  
 
 
 ### Online lecture this week is all about making data sheets. Don't forget to do the reading assignment before watching
