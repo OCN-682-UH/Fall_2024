@@ -2,7 +2,7 @@
 title: "Week 1b"
 subtitle: "Collecting and recording data"
 author: "Dr. Nyssa Silbiger"
-institute: "CSUN Spring 2023"
+institute: "UH Fall 2024"
 date: "(updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
@@ -440,7 +440,7 @@ Keep names *short, but meaningful*
 ]
 
 ---
-# 7 Make a data dictionary
+# 7. Make a data dictionary
 
 ### This will contain very important metadata for your datasheet
 It should contain (at least):
@@ -510,7 +510,7 @@ An error will pop-up when typing if it is outside the range
 - This is a non-proprietary format and can be opened in any spreadsheet program
 
 .center[
-<img src="https://www.efilecabinet.com/wp-content/uploads/2019/03/csv-01.png" />
+<img src="https://www.shutterstock.com/image-vector/csv-file-icon-datasheet-vector-600nw-2251264157.jpg" />
 ]
 ---
 # What is wrong with this data sheet?
@@ -530,9 +530,10 @@ An error will pop-up when typing if it is outside the range
 
 class: center, middle
 
-# In lab today we will make a field/lab sheet, data sheet, and metadata (data dictionary).
+# For your homework today, you will make a field sheet, lab data sheet, and metadata (data dictionary).
 
-But, first 10 minute break
+
+Read through the directions in the attached PDF on Laulima carefully. The assignment is due before class on Tuesday.
 
 ---
 
