@@ -263,7 +263,7 @@ gitexper
 library(wordcloud2)
 library(tidyverse)
 
-stop_words <- c('a', 'and', 'for', 'the', 'to', 'in','be','i','it','of','that','with','can','about','if','how','use','my','when','am','on','im')
+stop_words <- c('a', 'and', 'for', 'the', 'to', 'in','be','i','it','of','that','with','can','about','if','how','use','my','when','am','on','im','this','were','could','was','so','its','or','but','by','so')
 
  words<-survey %>% select(text = WantToDo) %>%
    mutate(text = tolower(text)) %>% 
@@ -565,27 +565,6 @@ data.frame(
 ```{r, echo=FALSE}
 data.frame(x = 1:3, y = I(matrix(1:9, nrow = 3)))
 ```
----
-class: center, middle
-
-### Our first lab is an intro to R/R refresher. 
-
-### But, first, a short break!
-
-
-
----
----
-# Outline for lab
-
-- What is R?
-- What is coding?
-- Benefits and constraints to R
-- How to interact with R
-- Examples in R
-- Work on your own
-
-
 ---
 
 # What is R?
