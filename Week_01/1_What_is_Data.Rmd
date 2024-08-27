@@ -90,10 +90,7 @@ Welcome to Data Science Fundamentals in R!
 2. What is your coding background?
 3. Introduction to the class.
 4. Data structures.
-
-
-Lab 
-1. R intro/refresher
+5. R intro/refresher
   
 ---
 
