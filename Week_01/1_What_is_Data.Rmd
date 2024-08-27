@@ -794,7 +794,7 @@ This is not graded, but if you do not complete it this week you will fall behind
 [Data Analysis and Visualization R](https://datacarpentry.org/R-ecology-lesson-alternative/index.html)  
 
 
-### Online lecture this week is all about making data sheets. Don't forget to do the reading assignment before watching
+### Online lecture this week is all about making data sheets. Don't forget to do the reading assignment before watching. There is homework associated with the lecuture. Do not wait until the last minute.
 
 ---
 
