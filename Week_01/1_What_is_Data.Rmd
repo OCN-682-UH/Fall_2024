@@ -96,7 +96,7 @@ Welcome to Data Science Fundamentals in R!
 
 # Data are everywhere!
 
-<img src="https://www.al.com/resizer/DcQxQ5Gud_G5hq2lCfxSjt2es2o=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/UQLTE52XYFDUBJE76YLVJL23II.jpg" width=100%, align="center" />
+<img src="https://cdn.statcdn.com/Infographic/images/normal/32725.jpeg" width=70%, align="center"/>
 
 ---
 
@@ -107,13 +107,7 @@ Welcome to Data Science Fundamentals in R!
 ---
 # Data are everywhere!
 
-<img src="https://ichef.bbci.co.uk/news/2048/cpsprodpb/3479/production/_122233431_optimised-sa_daily_cases15dec-nc.png", align = "center"/>
-
----
-
-# Data are everywhere!
-
-<img src="https://miro.medium.com/max/810/0*VpUIWouoCIgggZ_Q." width=100%, align="center" />
+<img src="https://static01.nyt.com/images/2024/01/09/multimedia/2024-01-06-covid-wastewater-index/2024-01-06-covid-wastewater-index-videoSixteenByNine3000-v2.png", align = "center"/>
 
 ---
 
@@ -123,11 +117,6 @@ Welcome to Data Science Fundamentals in R!
 
 ---
 
-# Data are everywhere!
-
-<img src="https://www.smrfoundation.org/wp-content/uploads/2009/09/2009-September-Bernie-Hogan-Facebook-Network-Visualization.png" width=100%, align="center" />
-
----
 
 # We live in a data filled world
 
@@ -170,7 +159,11 @@ class: inverse, middle, center
 
 # This semester, we will all become data scientists!
 
-<img src = "https://media1.tenor.com/images/c0c2264911d8cd4a688acd0542240f95/tenor.gif?itemid=7603564", align="center" />
+<img src = "https://media1.tenor.com/images/c0c2264911d8cd4a688acd0542240f95/tenor.gif?itemid=7603564", align="center" />   
+
+--
+
+*"I feel like I am fighting R most of the time and I think if we (me and R) just could sit down and understand one another it would be much easier for us both, ya know?"*
 
 ---
 # What is your experience?
@@ -434,7 +427,7 @@ All textbooks are free and online for this class.
 ---
 # Short quizzes
 
-### 10 min quiz, every week  
+### 5-10 min quiz, every week  
 
 - Concepts from required readings, labs, and lectures
 - Open notes, but no discussing with classmates (but the quiz is only 10 mins... so make sure to prepare and be on time)
@@ -506,7 +499,7 @@ class: inverse, middle, center
 | Dims   |      Homogeneous (same data type)     |   Heterogeneous (diff data type) |  
 |----------|:-------------:|:------:|
 |1D |  Atomic vector |    List     |
-|2D |    Matrix   | DataFrame |
+|2D |    Matrix   | DataFrame (Tibble) |
 | ND | Array |    |
  
 --
@@ -533,7 +526,7 @@ List<-list(1, "a" ,"TRUE")
 | Dims   |      Homogeneous (same data type)     |   Heterogeneous (diff data type) |  
 |----------|:-------------:|:------:|
 |1D |  Atomic vector |    List     |
-|2D |    Matrix   | DataFrame |
+|2D |    Matrix   | DataFrame (Tibble) |
 | ND | Array |    |
  
  
@@ -591,7 +584,7 @@ data.frame(x = 1:3, y = I(matrix(1:9, nrow = 3)))
 ---
 
 # Benefits of using R
-.pull-left[
+
 - FREE! (JMP: $1,540.00, PRIMER: $500, Minitab:$1,495)  
 - Powerful and flexible  
 - Publication quality graphics  
@@ -601,9 +594,9 @@ data.frame(x = 1:3, y = I(matrix(1:9, nrow = 3)))
 - You can write functions for specific needs  
 - You will become a better statistician because you will be forced to learn the inner workings of the models rather than just clicking a button  
 - A lots of help available: Google knows everything about R 
-- Some of the most lucrative jobs are coders]
+- Some of the most lucrative jobs are coders
 
-.pull-right[<img src ="https://media.tenor.com/QhQJsR-geoMAAAAC/digibyte-i-love-money.gif"/>]
+
 
 ---
 
