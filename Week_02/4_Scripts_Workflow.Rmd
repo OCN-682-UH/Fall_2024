@@ -32,7 +32,7 @@ options(htmltools.dir.version = FALSE)
 
 1. Import Data
   
-Lab 
+Homework
 1. Create file structure for class 
 
 1. Basic markdown for Readme files
@@ -47,7 +47,7 @@ Lab
 
 - You have all been added to GitHub Organization **OCN-682-UH**. 
 - You should have received an email asking you to accept (please do if you haven't already)
-![Org Photo](libs/Images/OrgoPhotoUH.PNG)
+![Org Photo](libs/Images/OrgoPhotoUH.png)
 
 ---
 # Git Organizations
