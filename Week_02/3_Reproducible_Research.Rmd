@@ -319,6 +319,8 @@ Go to [https://github.com/](https://github.com/)
 Follow the directions here from the "Install git" and "Introduce yourself to Git" chapters:  
 - [https://happygitwithr.com/install-git.html](https://happygitwithr.com/install-git.html)
 
+- NOTE: When you get to the part where you create a Personal Access Token, make sure that all boxes are clicked and that you set the expiration date to never (the very first drop down menu). If you keep the default (30 days), it will stop working in the middle of the semester.
+
 - This may take a while if you are completely new.  That is OK! We are here to help.  
 
 - One common issue to look out for... "Support for password authentication was removed!"  
@@ -533,7 +535,7 @@ Find the git tab on the right-hand site
 
 ---
 
-# Next class
+# Online class
 
 - We will learn about proper file structure and how to set-up a transparent script.
 - Send me your git username in slack **right now**.  
