@@ -80,6 +80,8 @@ I will show you an example now
 
 ### This is the repo you will work in during class.
 
+- A hint for viewing the lectures online: copy the url of the html file on github into [raw.githack.com](https://raw.githack.com/), then copy the "use this URL for development" link into your browser.  
+
 
 
 
@@ -391,7 +393,7 @@ The first thing we do is make a header
 ```{r, eval=FALSE}
 ### This is my first script.  I am learning how to import data
 ### Created by: Dr. Nyssa Silbiger
-### Created on: 2023-02-02
+### Created on: 2024-09-03
 ###############################################
 
 ```

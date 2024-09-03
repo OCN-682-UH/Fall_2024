@@ -12,11 +12,21 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Week 2b
+]
+.subtitle[
 ## Reproducible Scripts and Workflow
+]
+.author[
 ### Dr. Nyssa Silbiger
+]
+.institute[
 ### UH Data Science Fundamentals in R
-### (updated: 2024-08-27)
+]
+.date[
+### (updated: 2024-09-02)
+]
 
 ---
 
@@ -84,6 +94,8 @@ I will show you an example now
 1.   Next navigate to your personal repository and **pull**.  
 
 ### This is the repo you will work in during class.
+
+- A hint for viewing the lectures online: copy the url of the html file on github into [raw.githack.com](https://raw.githack.com/), then copy the "use this URL for development" link into your browser.  
 
 
 
@@ -279,7 +291,7 @@ Section 5 and beyond: All your analyses, which can also be subset into different
 - To install a package you type **in the console**:
 
 
-```r
+``` r
 install.packages("PackageName")
 ```
 
@@ -293,7 +305,7 @@ install.packages("PackageName")
 We will use this to make unbreakable file paths.
 
 
-```r
+``` r
 install.packages("here")
 ```
 
@@ -305,7 +317,7 @@ install.packages("here")
 ### **Consider**: an absolute file path
 
 
-```r
+``` r
 my_data &lt;- read_csv("usr/nsilbiger/My Documents/ComputerModeling/Fall 2024/Lab 1/data/some_data.csv”)
 ```
 
@@ -342,7 +354,7 @@ class: center, middle
 (the left of the :: is the *package name* and to the right is the *function name*.  In this case, they are both *here*)
 
 
-```r
+``` r
 my_data&lt;-read_csv(here("data","sb_temp.csv"))
 ```
 
@@ -373,7 +385,7 @@ RStudio Community Blog
 
 .center[
 
-```r
+``` r
 install.packages("tidyverse")
 ```
 ]
@@ -398,10 +410,10 @@ install.packages("tidyverse")
 The first thing we do is make a header
 
 
-```r
+``` r
 ### This is my first script.  I am learning how to import data
 ### Created by: Dr. Nyssa Silbiger
-### Created on: 2023-02-02
+### Created on: 2024-09-03
 ###############################################
 ```
 
@@ -412,63 +424,26 @@ Next, we want to load the libraries that we plan to use.
 Adding the extra hashtags after load libraries makes a new section (notice the little carrot that appears)
 
 
-```r
+``` r
 ### Load libraries ########## 
 library(tidyverse)
 ```
 
 ```
-## Warning: package 'tidyverse' was built under R version 4.1.3
+## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
 ```
 
-```
-## -- Attaching packages --------------------------------------- tidyverse 1.3.2 --
-## v ggplot2 3.4.2     v purrr   1.0.1
-## v tibble  3.2.1     v dplyr   1.1.0
-## v tidyr   1.3.0     v stringr 1.5.0
-## v readr   2.1.4     v forcats 0.5.1
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 4.1.3
-```
-
-```
-## Warning: package 'tibble' was built under R version 4.1.3
-```
-
-```
-## Warning: package 'tidyr' was built under R version 4.1.3
-```
-
-```
-## Warning: package 'readr' was built under R version 4.1.3
-```
-
-```
-## Warning: package 'purrr' was built under R version 4.1.3
-```
-
-```
-## Warning: package 'dplyr' was built under R version 4.1.3
-```
-
-```
-## Warning: package 'stringr' was built under R version 4.1.3
-```
-
-```
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
+``` r
 library(here)
-```
-
-```
-## Warning: package 'here' was built under R version 4.1.3
 ```
 
 ```
@@ -481,20 +456,20 @@ Next, let's read in our data using the {here} package.
 weightdata.csv is in folder data, which is in folder Week_2
 
 
-```r
+``` r
 ### Read in data ###
 WeightData&lt;-read_csv(here("Week_02","data","weightdata.csv"))
 ```
 
 ```
 ## Rows: 10 Columns: 3
-## -- Column specification --------------------------------------------------------
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr (1): Treatment
 ## dbl (2): SampleID, Weight
 ## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ---
@@ -504,14 +479,14 @@ Lastly, for today, some analysis.
 We will simply look at the data.
 
 
-```r
+``` r
 ### Data Analysis #####
 
 head(WeightData) # Looks at the top 6 lines of the dataframe
 ```
 
 ```
-## # A tibble: 6 x 3
+## # A tibble: 6 × 3
 ##   SampleID Treatment Weight
 ##      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
 ## 1        1 High         1.3
@@ -526,12 +501,12 @@ head(WeightData) # Looks at the top 6 lines of the dataframe
 # Let's create our first simple script
 
 
-```r
+``` r
 tail(WeightData) # Looks at the bottom 6 lines of the dataframe
 ```
 
 ```
-## # A tibble: 6 x 3
+## # A tibble: 6 × 3
 ##   SampleID Treatment Weight
 ##      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
 ## 1        5 High         4.6
@@ -542,7 +517,7 @@ tail(WeightData) # Looks at the bottom 6 lines of the dataframe
 ## 6       10 Low          8.7
 ```
 
-```r
+``` r
 View(WeightData) # opens a new window to look at the entire dataframe
 ```
 
@@ -616,6 +591,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
