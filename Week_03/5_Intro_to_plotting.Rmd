@@ -59,6 +59,8 @@ green <- "#007965"
 
 1. Quiz 2!
 
+1. Go over some readme files
+
 1. Responsible plotting
 
 1. Intro to ggplot2
@@ -1122,7 +1124,7 @@ ggplot(data=penguins,
 [R graph gallery](https://www.r-graph-gallery.com/)  
 
 --
-## More plotting fun and details on "Tidy Tuesday" next class.
+## More plotting fun in online class.
 
 
 ---
