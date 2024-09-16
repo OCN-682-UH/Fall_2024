@@ -57,6 +57,9 @@ green <- "#007965"
 ---
 # Outline of class
 
+
+1. Quiz!
+1. Online lecture review
 1. Intro to {dplyr}
  - a set of verbs for manipulating data:
   - filtering rows, selecting columns, grouping by objects, getting summary statistics, mutating columns, removing NAs
