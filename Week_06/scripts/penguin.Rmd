@@ -1,0 +1,51 @@
+---
+title: "Penguins"
+author: "Nyssa"
+date: "10/01/2024"
+output: 
+  html_document:
+    toc: TRUE 
+    toc_float: TRUE 
+    theme: darkly
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Intro 
+
+Today we are going to work with the penguin data to learn *RMarkdown*.
+
+# Load Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+```
+
+# Inspect the data
+```{r}
+glimpse(penguins)
+```
+
+# Make a plot 
+
+```{r, warning=FALSE, message=FALSE}
+penguins %>% # using penguin dataset
+  ggplot(aes(x = bill_length_mm, # length
+             y = bill_depth_mm, #depth 
+             color = species))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x = "Bill Length (mm)",
+       y = "Bill Depth (mm)")+
+  theme_bw()
+```
+
+
+
+
+
