@@ -90,6 +90,7 @@ Next Time
 ]
 
 .center[
+[cheatsheet](https://rmarkdown.rstudio.com/lesson-15.html)
 
 [The RMarkdown Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
 
