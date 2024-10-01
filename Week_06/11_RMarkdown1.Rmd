@@ -74,7 +74,7 @@ Working with RMarkdown today
 
 
 
-Lab 
+Homework 
 1. Practice with RMarkdown
 ]
 
@@ -90,7 +90,6 @@ Next Time
 ]
 
 .center[
-[Download this cheatsheet on RMarkdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 [The RMarkdown Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
 
