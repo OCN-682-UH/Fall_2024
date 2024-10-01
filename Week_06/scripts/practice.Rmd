@@ -10,7 +10,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, 
+                      message=FALSE, 
+                      warning=FALSE,
+                      fig.path = "../output/")
 ```
 
 # Intro 
@@ -19,7 +22,7 @@ Today we are going to work with the penguin data to learn *RMarkdown*.
 
 # Load Libraries
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 library(tidyverse)
 library(here)
 library(palmerpenguins)
@@ -33,7 +36,7 @@ glimpse(penguins)
 
 # Make a plot 
 
-```{r}
+```{r penguinplot, fig.asp=1.2, fig.align='center', fig.cap="This is a scatterplot of penguins", dev="pdf"}
 penguins %>% # using penguin dataset
   ggplot(aes(x = bill_length_mm, # length
              y = bill_depth_mm, #depth 
@@ -43,5 +46,25 @@ penguins %>% # using penguin dataset
   labs(x = "Bill Length (mm)",
        y = "Bill Depth (mm)")+
   theme_bw()
+```
+
+| Time  | Session | Topic    |
+|:------|:-------:|---------:|
+| _left_ | _center_| _right_ |
+| 01:00  | 1       | Anatomy |
+| 01:50  |         | *Break* |
+| 02:00  | 2       | Tables  |
+| 02:45  |         | *Break* |
+
+
+```{r}
+penguins %>%
+  group_by(species) %>%
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) %>%
+  kbl() %>%  # make it a kable table
+  kable_classic()%>%
+  row_spec(2, bold = T, color = "white", background = "red")%>%
+  kable_styling(full_width = FALSE)
+
 ```
 
