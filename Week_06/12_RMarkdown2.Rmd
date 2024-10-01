@@ -83,11 +83,8 @@ Homework
 [RMarkdown RStudio Guide](https://rmarkdown.rstudio.com/)
 ]
 ---
-# Review
+# Comments
 
-1. What is the short cut to add a code chunk to an RMarkdown document?
-
---
  ### Can you add comments in markdown? 
  
  YES!
@@ -316,7 +313,7 @@ meme_get("DosEquisMan") %>%
 # Homework
 
 - Take any of the data sheets you have already worked with in class and create **at least one table and one figure in an Rmarkdown file**.
-- Create the most beautiful RMarkdown output you can in either an html, github doc, or pdf format.  
+- Create the most beautiful RMarkdown output you can in either an html, github doc, or pdf format.  **YOU MUST KNIT THE FILE**
 - Make sure you have headings with clear explanations of what you are doing.  
 - Practice using markdown formatting with bold, italics, and lists (use each of these at least once).  
 - Make sure your outputs and scripts are saved in the appropriate folders. Keep proper coding etiquette (figures need to be pub quality as usual and you need to comment your code).

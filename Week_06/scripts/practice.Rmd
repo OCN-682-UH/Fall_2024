@@ -6,13 +6,11 @@ output:
   html_document:
     toc: TRUE 
     toc_float: TRUE 
-    theme: darkly
-
+    
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
-                      fig.path = "../output/")
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Intro 
@@ -25,6 +23,7 @@ Today we are going to work with the penguin data to learn *RMarkdown*.
 library(tidyverse)
 library(here)
 library(palmerpenguins)
+library(kableExtra)
 ```
 
 # Inspect the data
@@ -34,7 +33,7 @@ glimpse(penguins)
 
 # Make a plot 
 
-```{r penguin_fig, warning=FALSE, message=FALSE, fig.asp = 1.2, fig.align='center',dev="pdf"}
+```{r}
 penguins %>% # using penguin dataset
   ggplot(aes(x = bill_length_mm, # length
              y = bill_depth_mm, #depth 
@@ -45,15 +44,4 @@ penguins %>% # using penguin dataset
        y = "Bill Depth (mm)")+
   theme_bw()
 ```
-
-
-| Time  | Session | Topic    |
-|:------|:-------:|---------:|
-| _left_ | _center_| _right_ |
-| 01:00  | 1       | Anatomy |
-| 01:50  |         | *Break* |
-| 02:00  | 2       | Tables  |
-| 02:45  |         | *Break* |
-
-
 
