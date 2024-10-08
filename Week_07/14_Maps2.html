@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### UH Data Science Fundamentals in R
 ]
 .date[
-### (updated: 2024-10-01)
+### (updated: 2024-10-07)
 ]
 
 ---
@@ -87,8 +87,8 @@ Working with Maps part 2
 
 
 ``` r
-install.packages("ggmap") # for ggmaps
-install.packages("ggsn") # to add scale bars and compass arrows
+devtools::install_github("dkahle/ggmap")# for ggmaps
+install.packages("ggspatial")# to add scale bars and compass arrows
 ```
 
 
@@ -96,7 +96,7 @@ install.packages("ggsn") # to add scale bars and compass arrows
 library(ggmap)
 library(tidyverse)
 library(here)
-library(ggsn)
+library(ggspatial)
 ```
 
 
@@ -106,6 +106,9 @@ register_google(key = "YOUR KEY HERE", write = TRUE) ### use your own API
 #IMPORTANT don't put your key to github!! I usually save mine in a text file and import it each time
 
 # Setting write = TRUE will write the API key to your R environment so that you do not have to re register it each time
+
+#Also use the stadia maps API Key
+register_stadiamaps("Your API KEY HERE", write = TRUE)
 ```
 
 ---
@@ -218,8 +221,6 @@ ggmap(Map1)
 
 
 ``` r
-#register_stadiamaps("YOUR-API-KEY-HERE", write = TRUE) -  need another API key 
-# https://docs.stadiamaps.com/tutorials/getting-started-in-r-with-ggmap/
 *Map1&lt;-get_map(WP,zoom = 17, maptype = "stamen_watercolor", source = "stadia")
 
 ggmap(Map1)
@@ -251,14 +252,13 @@ ggmap(Map1)+
              aes(x = Long, y = Lat, color = Salinity), 
              size = 4) + 
   scale_color_viridis_c()+
-  scalebar( x.min = -157.766, x.max = -157.758,
-           y.min = 21.2715, y.max = 21.2785,
-            dist = 250, dist_unit = "m", model = "WGS84", 
-            transform = TRUE, st.color = "white",
-            box.fill = c("yellow", "white")) 
+  annotation_scale( bar_cols = c("yellow", "white"),
+                    location = "bl")+ # put the bar on the bottom left and make the colors yellow and white
+  annotation_north_arrow(location = "tl")+ # add a north arrow
+  coord_sf(crs = 4326) # for the scale bar to work it needs to be in this coordinate system - this is a typical coordinate reference system for a GPS (WGS84)
 ```
 
-&lt;img src="14_Maps2_files/figure-html/unnamed-chunk-12-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+&lt;img src="14_Maps2_files/figure-html/unnamed-chunk-12-1.png" width="35%" style="display: block; margin: auto;" /&gt;
 
     
 ---

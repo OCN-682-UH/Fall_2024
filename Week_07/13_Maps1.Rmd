@@ -95,7 +95,7 @@ Other very helpful packages:
 - **sf** (This is for the serious GIS people. If you want to do actual spatial analyses this is the package to use)
 - **ggmap** (Uses the google maps API to make maps. Really easy to use, but requires a credit card for the API...)
 - **tmap** (static and interactive maps)
-- **leaflet** (interactive html maps)
+- **leaflet** (interactive html maps-- Awesome to use with rmakrdown files)
 
 Helpful references:
 1. The required reading for today
@@ -631,6 +631,25 @@ library(ggdogs)
 ggplot(mtcars) +
   geom_dog(aes(mpg, wt), dog = "pug", size = 5)
 ```
+---
+# Homework
+You need to make a map **using RMarkdown** with one of the following datasets from past Tidy Tuesdays. Make sure, as usual, that you scripts and output are saved appropriately.
+
+[Plastic pollution](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-26/readme.md)
+
+[Cats on the move!](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-31/readme.md)
+
+[Where is Bigfoot!](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13)
+
+[Meteorites](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11)
+
+## Set up and test your google API key **BEFORE** online class.  
+You cannot follow along in class without the google API key. It requires a credit card, but you need to make 10,000 maps before you get charged (i.e. unless you are a developer you will never get charged). Follow the directions starting at ["Enable Google static map service for ggmap"](https://www.littlemissdata.com/blog/maps). If you don't feel comfortable doing this then you can just follow along in class online. Also, important, you **need to use a gmail account to set up your google API.**  
+
+You will also need a **Stadia Maps** API key.  This one does not require a credit card.  Follow directions [here](https://docs.stadiamaps.com/tutorials/getting-started-in-r-with-ggmap/)
+
+
+
 
 ---
 # Good plot Bad plot lab - competition
@@ -681,28 +700,6 @@ The second plot should be based on the same or similar data to the first plot, b
 .pull-right[
 ![goodplot1](libs/images/goodplot-1.png)]
 
-
-
----
-# Twitter inspiration
-
-[See this thread](https://x.com/NSilbiger/status/1642006283103662080)
-
-
----
-# Homework
-You need to make a map **using RMarkdown** with one of the following datasets from past Tidy Tuesdays. Make sure, as usual, that you scripts and output are saved appropriately.
-
-[Plastic pollution](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-26/readme.md)
-
-[Cats on the move!](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-31/readme.md)
-
-[Where is Bigfoot!](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13)
-
-[Meteorites](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11)
-
-## Set up and test your google API key **BEFORE** online class.  
-You cannot follow along in class without the google API key. It requires a credit card, but you need to make 10,000 maps before you get charged (i.e. unless you are a developer you will never get charged). Follow the directions starting at ["Enable Google static map service for ggmap"](https://www.littlemissdata.com/blog/maps). If you don't feel comfortable doing this then you can just follow along in class online. Also, important, you **need to use a gmail account to set up your google API.**
 
 ---
 class: center, middle
