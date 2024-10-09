@@ -10,7 +10,9 @@ There is one unique folder per week with all the information needed for that wee
 - [Week 03](https://github.com/OCN-682-UH/Fall_2024/tree/main/Week_03)
 - [Week 04](https://github.com/OCN-682-UH/Fall_2024/tree/main/Week_04)
 - [Week 05](https://github.com/OCN-682-UH/Fall_2024/tree/main/Week_05)
-
+- [Week 06](https://github.com/OCN-682-UH/Fall_2024/tree/main/Week_06)
+- [Week 07](https://github.com/OCN-682-UH/Fall_2024/tree/main/Week_07)
+- [Week 08](https://github.com/OCN-682-UH/Fall_2024/tree/main/Week_08)
 
 
 
