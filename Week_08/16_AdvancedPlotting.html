@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### UH Data Science Funamentals Fall 2024
 ]
 .date[
-### (updated: 2024-10-08)
+### (updated: 2024-10-11)
 ]
 
 ---
@@ -384,7 +384,7 @@ ggplot(aes(x = body_mass_g,
      state_length = 1 # The length of the pause between transitions
    )+
   ease_aes("sine-in-out") +
-* ggtitle('Year: {closest_state}')
+* labs(title = 'Year: {closest_state}')
 ```
 ]
 
@@ -409,7 +409,7 @@ ggplot(aes(x = body_mass_g,
      state_length = 1 # The length of the pause between transitions
    )+
   ease_aes("sine-in-out") +
-  ggtitle('Year: {closest_state}') +
+  labs(title = 'Year: {closest_state}') +
 * anim_save(here("Week_08","output","mypengiungif.gif"))
 ```
 ]
