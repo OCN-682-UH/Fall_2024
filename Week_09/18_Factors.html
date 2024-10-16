@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 11b</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 11b
+]
+.subtitle[
+## Working with factors
+]
+.author[
+### Dr. Nyssa Silbiger
+]
+.institute[
+### UH Data Science Fundamentals Fall 2024
+]
+.date[
+### (updated: 2024-10-15)
+]
+
+---
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+
+
+
+---
+# Outline of class
+
+Working with factors
+
+1. What is a factor
+2. Using {forcats} a part of the tidyverse (for CATegorical data... also an anagram for factor)
+3. Homework using factors  
+
+[Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/factors.pdf)
+
+&lt;img src ="https://forcats.tidyverse.org/logo.png"/&gt;
+
+
+---
+# Set-up your script
+
+
+``` r
+library(tidyverse)
+library(here)
+```
+
+### load data
+We will use two datasets today. One from an old TidyTuesday and one using starwars data (part of the forcats package).
+
+
+``` r
+#tuesdata &lt;- tidytuesdayR::tt_load(2021, week = 7)
+#income_mean&lt;-tuesdata$income_mean
+
+income_mean &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_mean.csv')
+```
+
+
+
+
+
+---
+# What is a factor
+
+A factor is a specialized version of a character. It is how we truly store *cat*egorical data. The values that a factor takes are called **levels**. These levels allow you to order your data in specific ways. **The default levels are always alphabetical.** So, we need to learn how to use factors appropriately and reorder them to be specific to our analyses.  
+
+Importantly, once you convert a character into a factor, R is actually storing them as integers (i.e., 1,2,3,4...). If you are not careful this can lead to a lot of headache... but, this is how you can put your characters in a specific order.
+
+To make something a factor you put the vector in the function factor() 
+
+
+``` r
+fruits&lt;-factor(c("Apple", "Grape", "Banana"))
+fruits
+```
+
+```
+## [1] Apple  Grape  Banana
+## Levels: Apple Banana Grape
+```
+
+
+---
+# factor booby-traps!
+When can this be scary...
+
+Let's say you had a typo in a column of what was suppose to be numbers.  R will read everything in as characters. If they are characters and you try to covert it to a number, the rows with real characters will covert to NAs 
+
+``` r
+test&lt;-c("A", "1", "2")
+as.numeric(test)
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```
+## [1] NA  1  2
+```
+
+--
+
+Let's test was a factor
+
+``` r
+test&lt;-factor(test) # covert to factor
+as.numeric(test)
+```
+
+```
+## [1] 3 1 2
+```
+
+Yikes!
+
+---
+# Reading in data safely
+
+These types of factor booby-traps are why there was a big push to remove the automatic import of strings as factors.  If you read in your data as **read.csv()** then all your strings will be automatically read in as factors, if you use **read_csv()** strings will be read as characters. 
+
+
+
+---
+# {forcats}
+
+The forcats package is a family of functions for categorical data. All the main fuctions start with **fct_**
+
+Let's start with the starwars dataset to learn about how to use factors
+
+
+``` r
+glimpse(starwars)
+```
+
+```
+## Rows: 87
+## Columns: 14
+## $ name       &lt;chr&gt; "Luke Skywalker", "C-3PO", "R2-D2", "Darth Vader", "Leia Or…
+## $ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, 180, 2…
+## $ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0, 84.0, 77.…
+## $ hair_color &lt;chr&gt; "blond", NA, NA, "none", "brown", "brown, grey", "brown", N…
+## $ skin_color &lt;chr&gt; "fair", "gold", "white, blue", "white", "light", "light", "…
+## $ eye_color  &lt;chr&gt; "blue", "yellow", "red", "yellow", "brown", "blue", "blue",…
+## $ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 24.0, 57.0, …
+## $ sex        &lt;chr&gt; "male", "none", "none", "male", "female", "male", "female",…
+## $ gender     &lt;chr&gt; "masculine", "masculine", "masculine", "masculine", "femini…
+## $ homeworld  &lt;chr&gt; "Tatooine", "Tatooine", "Naboo", "Tatooine", "Alderaan", "T…
+## $ species    &lt;chr&gt; "Human", "Droid", "Droid", "Human", "Human", "Human", "Huma…
+## $ films      &lt;list&gt; &lt;"A New Hope", "The Empire Strikes Back", "Return of the J…
+## $ vehicles   &lt;list&gt; &lt;"Snowspeeder", "Imperial Speeder Bike"&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, "Imp…
+## $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&gt;, "TIE Advanced x1",…
+```
+
+---
+# starwars
+
+Let's look at some information by different species in the starwars films. How many individuals of each species are present across all starwars films?
+
+
+``` r
+starwars %&gt;% 
+  filter(!is.na(species)) %&gt;% # remove the NAs
+  count(species, sort = TRUE)
+```
+
+```
+## # A tibble: 37 × 2
+##    species      n
+##    &lt;chr&gt;    &lt;int&gt;
+##  1 Human       35
+##  2 Droid        6
+##  3 Gungan       3
+##  4 Kaminoan     2
+##  5 Mirialan     2
+##  6 Twi'lek      2
+##  7 Wookiee      2
+##  8 Zabrak       2
+##  9 Aleena       1
+## 10 Besalisk     1
+## # ℹ 27 more rows
+```
+
+---
+# starwars
+
+There are 38 unique species, but most are really rare.  Let's say we wanted to lump all the species together that had **less than 3 individuals**. We could use **fct_lump()** which converts the data into a factor and lumps it together
+
+
+``` r
+*star_counts&lt;-starwars %&gt;%
+  filter(!is.na(species)) %&gt;%
+* mutate(species = fct_lump(species, n = 3)) %&gt;%
+  count(species)
+
+star_counts
+```
+
+```
+## # A tibble: 4 × 2
+##   species     n
+##   &lt;fct&gt;   &lt;int&gt;
+## 1 Droid       6
+## 2 Gungan      3
+## 3 Human      35
+## 4 Other      39
+```
+
+
+Notice the order is not in alphabetical order because it is now a factor
+---
+# reordering factors
+
+A basic ggplot
+
+
+``` r
+star_counts %&gt;%
+  ggplot(aes(x = species, y = n))+
+  geom_col()
+```
+
+![](18_Factors_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+Would be more helpful to view in order of lowest to highest...
+---
+# reordering factors
+
+A basic ggplot, in order
+
+
+``` r
+star_counts %&gt;%
+* ggplot(aes(x = fct_reorder(species, n), y = n))+ # reorder the factor of species by n
+  geom_col()
+```
+
+![](18_Factors_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+---
+# reordering factors
+
+A basic ggplot, in order (make it descending)
+
+
+``` r
+star_counts %&gt;%
+* ggplot(aes(x = fct_reorder(species, n, .desc = TRUE), y = n))+ # reorder the factor of species by n
+  geom_col() +
+* labs(x = "Species")
+```
+
+![](18_Factors_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+# reordering line plots
+
+Let's say you wanted to make a line plot and reorder the legend to match the order of the lines.  We will use the **income_mean** dataset to illustrate this.
+
+
+``` r
+glimpse(income_mean)
+```
+
+```
+## Rows: 3,708
+## Columns: 5
+## $ year            &lt;dbl&gt; 2019, 2019, 2019, 2019, 2019, 2019, 2018, 2018, 2018, …
+## $ race            &lt;chr&gt; "All Races", "All Races", "All Races", "All Races", "A…
+## $ dollar_type     &lt;chr&gt; "Current Dollars", "Current Dollars", "Current Dollars…
+## $ income_quintile &lt;chr&gt; "Lowest", "Second", "Middle", "Fourth", "Highest", "To…
+## $ income_dollars  &lt;dbl&gt; 15286, 40652, 68938, 111112, 254449, 451122, 13775, 37…
+```
+
+--
+
+We will make a plot of the total income by year and quantile across all dollar types.
+
+
+``` r
+total_income&lt;-income_mean %&gt;%
+  group_by(year, income_quintile)%&gt;%
+  summarise(income_dollars_sum = sum(income_dollars))%&gt;%
+  mutate(income_quintile = factor(income_quintile)) # make it a factor
+```
+---
+# reordering line plots
+Basic line plot
+
+
+``` r
+total_income%&gt;%
+ggplot(aes(x = year, y = income_dollars_sum, color = income_quintile))+
+  geom_line()
+```
+
+![](18_Factors_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+Notice the legend order.... Would be more helpful if it is sorted
+
+---
+# reordering line plots
+
+We can reorder line plots by using fct_reorder2, which reorders the data by two variables
+
+
+``` r
+total_income%&gt;%
+  ggplot(aes(x = year, y = income_dollars_sum, 
+*            color = fct_reorder2(income_quintile,year,income_dollars_sum)))+
+  geom_line()+
+* labs(color = "income quantile")
+```
+
+![](18_Factors_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+---
+# reorder levels directly in a vector because I said so
+
+Let's say we have a vector and we want to put it in a specific order that **we say**. Not necessarily because its the largest or smallest value
+
+
+
+``` r
+x1 &lt;- factor(c("Jan", "Mar", "Apr", "Dec"))
+x1
+```
+
+```
+## [1] Jan Mar Apr Dec
+## Levels: Apr Dec Jan Mar
+```
+This order is probably not what we want... 
+
+--
+You can set the specific order of the levels
+
+``` r
+x1 &lt;- factor(c("Jan", "Mar", "Apr", "Dec"), levels = c("Jan", "Mar", "Apr", "Dec"))
+x1
+```
+
+```
+## [1] Jan Mar Apr Dec
+## Levels: Jan Mar Apr Dec
+```
+
+
+
+---
+# subest data with factors
+
+Back to starwars. Let's say we instead of grouping our species that have &lt; 3 counts into "Other" we just filter them out.
+
+
+``` r
+starwars_clean&lt;-starwars %&gt;% 
+  filter(!is.na(species)) %&gt;% # remove the NAs
+  count(species, sort = TRUE) %&gt;%
+* mutate(species = factor(species)) %&gt;% # make species a factor
+* filter(n&gt;3) # only keep species that have more than 3
+
+starwars_clean
+```
+
+```
+## # A tibble: 2 × 2
+##   species     n
+##   &lt;fct&gt;   &lt;int&gt;
+## 1 Human      35
+## 2 Droid       6
+```
+
+--
+
+Check the **levels** of the factor
+
+
+``` r
+levels(starwars_clean$species)
+```
+
+```
+##  [1] "Aleena"         "Besalisk"       "Cerean"         "Chagrian"      
+##  [5] "Clawdite"       "Droid"          "Dug"            "Ewok"          
+##  [9] "Geonosian"      "Gungan"         "Human"          "Hutt"          
+## [13] "Iktotchi"       "Kaleesh"        "Kaminoan"       "Kel Dor"       
+## [17] "Mirialan"       "Mon Calamari"   "Muun"           "Nautolan"      
+## [21] "Neimodian"      "Pau'an"         "Quermian"       "Rodian"        
+## [25] "Skakoan"        "Sullustan"      "Tholothian"     "Togruta"       
+## [29] "Toong"          "Toydarian"      "Trandoshan"     "Twi'lek"       
+## [33] "Vulptereen"     "Wookiee"        "Xexto"          "Yoda's species"
+## [37] "Zabrak"
+```
+---
+# subest data with factors
+
+Only the data that we subsetted are in the dataframe, but all the levels from all possible factors are still there... this causes all sorts of problems when you go to plot.  Using either **fct_drop()** within mutate() or **droplevels()** (the latter is in base R), we can remove any extra levels not included in the dataframe
+
+
+``` r
+starwars_clean&lt;-starwars %&gt;% 
+  filter(!is.na(species)) %&gt;% # remove the NAs
+  count(species, sort = TRUE) %&gt;%
+  mutate(species = factor(species)) %&gt;% # make species a factor 
+  filter(n&gt;3)  %&gt;% # only keep species that have more than 3 
+* droplevels() # drop extra levels
+```
+
+
+
+``` r
+levels(starwars_clean$species)
+```
+
+```
+## [1] "Droid" "Human"
+```
+
+---
+# recode levels
+
+If you want to rename (or recode) a level. For example, lets recode Human to Humanoid.
+
+
+``` r
+starwars_clean&lt;-starwars %&gt;% 
+  filter(!is.na(species)) %&gt;% # remove the NAs
+  count(species, sort = TRUE) %&gt;%
+  mutate(species = factor(species)) %&gt;% # make species a factor 
+  filter(n&gt;3)  %&gt;% # only keep species that have more than 3 
+  droplevels() %&gt;% # drop extra levels 
+* mutate(species = fct_recode(species, "Humanoid" = "Human"))
+
+starwars_clean
+```
+
+```
+## # A tibble: 2 × 2
+##   species      n
+##   &lt;fct&gt;    &lt;int&gt;
+## 1 Humanoid    35
+## 2 Droid        6
+```
+
+---
+# Other helpful factor resources
+
+[From Assigned reading](https://r4ds.had.co.nz/factors.html)  
+[Jenny Bryan Stat 545](https://stat545.com/factors-boss.html)
+---
+# Today's totally awesome R package
+
+### {gm} (generate music)
+
+
+``` r
+install.packages('gm')
+```
+Then follow directions from [here](https://flujoo.github.io/gm/) to download the MuseScore program and tell R where the path to that program is.
+
+
+``` r
+library(gm)
+m &lt;- 
+  Music() +  # initialize a Music object
+  Meter(4, 4) + # add a 4/4 time signature
+  Line(list("C5", "D5", "E5", "F5"), list(1, 1, 1, 1)) # add a musical line of four quarter notes
+  
+show(m, to = c("score", "audio"))
+```
+
+<div></div>
+
+
+
+[Find out more here](https://flujoo.github.io/gm/)
+
+---
+# Homework
+
+Working with intertidal data. Today you will need to use skills that you have learned in working with words to clean up some issues with the character data and use what you learned today to reorder your factors into orders that make sense.  (Also the column headers could be better...). HINT: New package idea to fix this is using the [janitor package](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html).
+
+Your goal, as per usual, is to make a plot, any plot where one of the axes is **a factor**.  Save everything in the appropriate folders.
+
+You have two possible files to play with in the data folder (you don't HAVE to use both): intertidal.csv and intertidal_latitude.csv (as well as a data dictionary)
+
+Importantly, if you decide to visualize anything by tide height it should go from low to mid to high tide on the plot.   
+
+Due Tuesday, 1pm.
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Many slides modified from the following resources:   
+
+[forcats](https://forcats.tidyverse.org/)  
+[R4DS](https://r4ds.had.co.nz/factors.html)  
+[Jenny Bryan Stat 545](https://stat545.com/factors-boss.html)  
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "15:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
