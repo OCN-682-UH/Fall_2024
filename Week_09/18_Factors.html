@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### UH Data Science Fundamentals Fall 2024
 ]
 .date[
-### (updated: 2024-10-15)
+### (updated: 2024-10-17)
 ]
 
 ---
@@ -504,9 +504,9 @@ library(gm)
 m &lt;- 
   Music() +  # initialize a Music object
   Meter(4, 4) + # add a 4/4 time signature
-  Line(list("C5", "D5", "E5", "F5"), list(1, 1, 1, 1)) # add a musical line of four quarter notes
+  Line(c("C5", "D5", "E5", "F5")) # add a musical line of four quarter notes
   
-show(m, to = c("score", "audio"))
+gm::show(m, to = c("score", "audio"))
 ```
 
 <div></div>
@@ -524,9 +524,9 @@ Your goal, as per usual, is to make a plot, any plot where one of the axes is **
 
 You have two possible files to play with in the data folder (you don't HAVE to use both): intertidal.csv and intertidal_latitude.csv (as well as a data dictionary)
 
-Importantly, if you decide to visualize anything by tide height it should go from low to mid to high tide on the plot.   
+Importantly, if you decide to visualize anything by tide height it should go from low to mid to high tide on the plot and if you decide to visualize by site it should go in order of latitude (e.g. south to north or north to south).   
 
-Due Tuesday, 1pm.
+Homework due date extended for this assignment, **due on Friday**.
 
 
 ---
