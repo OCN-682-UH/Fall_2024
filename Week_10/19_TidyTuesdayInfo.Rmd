@@ -1,0 +1,134 @@
+---
+title: "Week 10"
+subtitle: "How to Tidy Tuesday"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Data Science Fundamentals Fall 2024"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+      ratio: '15:10'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(anicon)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+How to Tidy Tuesday!
+
+1. Quiz!
+2. How to Tidy Tuesday
+3. Goodplot/Badplot
+
+
+---
+# What is Tidy Tuesday?
+
+[Link for data](https://github.com/rfordatascience/tidytuesday)
+
+Tidy Tuesday is an international community of R enthusiasts that create visuals from the same dataset. The goal is to practice plotting and learn something new every week. It is amazing to see how many different ways you can visualize the same data.  
+
+- Instead of an online lecture, you must complete one new tidy tuesday every week for the remainder of the semester (there are 6 weeks left). Always due Tuesday at 1pm.  
+
+---
+# For full credit you must:  
+
+ - Add a dedicated Tidy_Tuesday folder to  your repo for your scripts and output.  
+ 
+--
+
+ - You must have proper script structure and file structure. 
+ 
+--
+
+ - You must submit in a knitted rmarkdown file. You can use any type of knit output (html, github doc, pdf, whatever you want)  
+ 
+--
+
+ - You must save your visual in the output folder.  
+ 
+--
+
+ - You must force yourself to learn at least one **NEW** thing each week. This could be anywhere from how you tidy the data to a new geom in ggplot, new table, new way to edit the theme, new package, etc. You can also learn something new within rmarkdown. Use this as an opportunity to really grow your coding skills. State in your markdown file what the new thing is that you learned.  
+ 
+--
+
+ - You **DO NOT** have to use the entirety of the weekly tidy tuesday dataset. In fact I encourage to subset it in some interesting way because the files can be huge
+
+---
+# Goodplot/Badplot Order - randomly assigned
+
+.pull-left[
+1. Diana Gao
+2. Kassandra Jensen  
+3. Jobel Pagan Villanfane  
+4. Brandon Brenes  
+5. Savannah Damiano  
+6. Hanalei Hoopai Sylva  
+7. Keanu Rochette-Yu Tsuen  
+8. Megan Smith 
+9. Kauanoe Greene  
+10. Annie Deck  
+11. Solimar Carrasquillo Ho  
+12. Kyle Bosworth  
+13. Mica Chapuis  
+14. Kelli Konicek  
+15. Shelbie Ishimaru  
+16. Retno Ningru  
+
+]
+
+.pull-right[ Vote for your [winner here!](https://forms.gle/TipqGSw5exPWK2HC9)
+]
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+ 
+
