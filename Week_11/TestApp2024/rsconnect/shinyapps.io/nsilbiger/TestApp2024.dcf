@@ -1,0 +1,12 @@
+name: TestApp2024
+title: TestApp2024
+username: nsilbiger
+account: nsilbiger
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13177021
+bundleId: 9288719
+url: https://nsilbiger.shinyapps.io/TestApp2024/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
