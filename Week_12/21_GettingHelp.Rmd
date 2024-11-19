@@ -62,9 +62,6 @@ green <- "#007965"
 2. Common Mistakes
 3. Reproducible examples {reprex}
 4. Copying and pasting {datapasta}
-
-
-Lab 
 1. Make a Reprex
 
 ---
@@ -100,8 +97,8 @@ Lab
   - Search with the keywords and package/function name if known, and include .R in the search keywords (e.g. “dplyr::mutate add column in .R” instead of “mutate variable”)  
   
   - “R” is generic - so consider using “R software” or “.R”
-Start learning and using language common in R communities & publications (e.g. R4DS), like data frame instead of spreadsheet  
-  - For now, anything reading, wrangling, ggplot2 related: considering navigating to documentation from [tidyverse.org](https://www.tidyverse.org/), [rdocumentation](https://www.rdocumentation.org/), or [RStudio community](https://community.rstudio.com/). 
+Start learning and using language common in R communities & publications (e.g. R4DS), like data frame or tibble instead of spreadsheet  
+  - For now, anything reading, wrangling, ggplot2 related: considering navigating to documentation from [tidyverse.org](https://www.tidyverse.org/), [rdocumentation](https://www.rdocumentation.org/), or [RStudio/Posit community](https://community.rstudio.com/). 
 
 ---
 # If you’re asking: What package or function should I use to do this thing?
@@ -140,7 +137,7 @@ Start learning and using language common in R communities & publications (e.g. R
 
 **Error:** There’s a fatal error in your code that prevented it from being run through successfully. You need to fix it for the code to run. 
 
-**Warning:** Non-fatal errors (don’t stop the code from running, but this is a potential problem that you should know about).
+**Warning:** Non-fatal errors (doesn’t stop the code from running, but this is a potential problem that you should know about).
 
 **Message:** Here’s some helpful information about the code you just ran (you can hide these if you want to)
 
@@ -360,8 +357,8 @@ So **LOOK AT YOUR RAW DATA, INTERMEDIATE DATA AND RESULTS** - especially just af
 
 .pull-left[
 - [The RStudio community](https://community.rstudio.com/)
-- [R4DS community on Slack](https://t.co/Tdv5GyDQym?amp=1)
-- "#rstats" on twitter - no seriously, create an account. Some to follow right away for maximum R learning, commentary and community: @dataandme, @hadleywickham, @drob, @RLadiesGlobal, @WeAreRLadies, @R4DScommunity, @allison_horst, @R_LGBTQ, @JennyBryan, @juliasilge, @noamross, @kara_woo, @thomas_mock, @juliesquid, @cedsherer @ellis_hughes @geokaramanis]
+- "#rstats" on BlueSky - no seriously, create an account. Some to follow right away for maximum R learning, commentary and community: @dataandme.bsky.social, @cedricsherer.com, @juliasilge.com, @posit.co, @kawawoo.com. @themockup.blog, @jennybryan.bsky.social,@noamross.net, @johnthegeek.com, @dslc.io, @womenindataviz.bsky.social, @juliesquid.bsky.social, @hadleywickham.bsky.social, @paul-buerkner.bsky.social, @r-foundation.bsky.social, @quarto.org, @bigbookofr.bsky.social]   
+
 
 .pull-right[
 ![rtwitter](libs/images/Rtwitter.PNG)
@@ -374,7 +371,7 @@ Chat GPT is a "large language model" that follows an instruction in a prompt and
 
 A.I. can be a very helpful tool, but it is only as smart as you... if you do not know how to debug code and you trust it blindly you will find yourself in a lot of trouble. Use it to assist you, but do not use it to replace you.  
 
-Why did I tell you not to use it in class until now?
+Why did should you be careful with ChatGPT?
 
 --
 
@@ -561,7 +558,17 @@ The reprex code:
 
 .foot-note[https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html]
 
+
 ---
+#Think Pair Shaire
+
+Make some simple code with your neighbors and add a bug.  Use datapasta and reprex to make a reproducible example and post it to our slack channel. Make sure to add your session info. 
+
+Someone in a different area has to find the error and offer a useable solution.
+
+---
+
+
 # Totally awesome R package
 
 Been coding all night in the library and need a ride home?
@@ -573,16 +580,8 @@ Use the {ubeR} package to hail a ride through R.
 [See here for details](https://github.com/datawookie/ubeR)  
 
 .center[
-<img src="https://camo.githubusercontent.com/7167a4b7f45e6c71e81ece2fd439622e614aded1b25789011fddc0cddf15a156/68747470733a2f2f63646e2e7261776769742e636f6d2f44617461576f6f6b69652f756265522f6d61737465722f756265722d6c6f676f2e737667"/, width=35%>
+<img src="https://camo.githubusercontent.com/e732bc7470a24908fb554b731f2fe2014e46391f640f412a074fd28b5e425289/68747470733a2f2f63646e2e7261776769742e636f6d2f44617461576f6f6b69652f756265522f6d61737465722f756265722d6c6f676f2e737667"/, width=35%>
 ]
-
----
-# Lab
-
-Make some simple code with your group and add a bug.  Use datapasta and reprex to make a reproducible example and post it to our slack channel. Make sure to add your session info. 
-
-Someone in a different group has to find the error and offer a solution.
-
 ---
 class: center, middle
 
