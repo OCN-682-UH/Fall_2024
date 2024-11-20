@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 13a</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Week 13a
+]
+.subtitle[
+## Iterative coding
+]
+.author[
+### Dr. Nyssa Silbiger
+]
+.institute[
+### UH Data Fundamentals Fall 2024
+]
+.date[
+### (updated: 2024-11-19)
+]
+
+---
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+
+
+
+---
+# Outline of class
+
+Working with iterative data  
+
+1. Quiz!
+1. for loops
+2. map functions from purrr (more cat puns!)
+
+
+&lt;img src = "https://paulvanderlaken.files.wordpress.com/2018/12/pp550x5501.jpg", width=40%/&gt;
+---
+# Set-up your script
+
+
+``` r
+library(tidyverse)
+library(here)
+```
+
+
+---
+# for loops
+
+**for loops** are one way to run an iterative process (do something over and over again). However, with the *tidyverse* you can avoid needing loops for almost any basic coding needs.  Where it does come in handy is in population modeling and Bayesian modeling, for example. Also, it is integral to programming and is happening "under the hood" whether you use them or not.
+
+
+
+---
+# for loops
+
+For loops have two major parts: an indexing statement and a command (or set of commands) to repeat.  The coding is in base R.
+
+The command looks like this:  
+`for(index in sequence){`  
+    `command to repeat}`
+
+.center[
+&lt;img src="https://media.geeksforgeeks.org/wp-content/uploads/20200404100137/for-loop-r2.png"/&gt;]
+
+
+---
+# Simple for loop
+
+Let's ask R to print a statement telling us what year it is along a sequence of years.  
+
+Start with the simple code for one year
+
+``` r
+print(paste("The year is", 2000))
+```
+
+```
+## [1] "The year is 2000"
+```
+
+--
+
+Put it in a for loop.
+
+
+``` r
+years&lt;-c(2015:2021)
+
+for (i in years){ # set up the for loop where i is the index
+  print(paste("The year is", i)) # loop over i
+}
+```
+
+```
+## [1] "The year is 2015"
+## [1] "The year is 2016"
+## [1] "The year is 2017"
+## [1] "The year is 2018"
+## [1] "The year is 2019"
+## [1] "The year is 2020"
+## [1] "The year is 2021"
+```
+
+---
+# Simple for loop
+
+What we just did printed something over and over, but it did not save it anywhere.  Let's say you want to save a new vector with all the years.  To do this we need to pre-allocate space and tell R where it is going to be saved.
+
+--
+Create an empty dataframe called `year_data` with columns for `year` and `year_name` .
+
+
+
+``` r
+#Pre-allocate space for the for loop
+# empty matrix
+year_data&lt;-data.frame(matrix(ncol = 2, nrow = length(years)))
+
+# add column names
+colnames(year_data)&lt;-c("year", "year_name")
+
+year_data
+```
+
+```
+##   year year_name
+## 1   NA        NA
+## 2   NA        NA
+## 3   NA        NA
+## 4   NA        NA
+## 5   NA        NA
+## 6   NA        NA
+## 7   NA        NA
+```
+---
+# Simple for loop
+
+Add the for loop
+
+One line at a time.  Let's first add in the column that is going to have all the names in it. Notice that I added an index `i` in the column name. I also am having the index go from 1:length(years), which is 1:7.  I use `length()` because it allows me to change the number of years in the vector without having to change the for loop. 
+
+
+``` r
+for (i in 1:length(years)){ # set up the for loop where i is the index
+* year_data$year_name[i]&lt;-paste("The year is", years[i]) # loop over i
+}
+
+year_data
+```
+
+```
+##   year        year_name
+## 1   NA The year is 2015
+## 2   NA The year is 2016
+## 3   NA The year is 2017
+## 4   NA The year is 2018
+## 5   NA The year is 2019
+## 6   NA The year is 2020
+## 7   NA The year is 2021
+```
+
+---
+# Simple for loop
+
+Fill in the year column too
+
+
+``` r
+for (i in 1:length(years)){ # set up the for loop where i is the index
+  year_data$year_name[i]&lt;-paste("The year is", years[i]) # loop over year name
+* year_data$year[i]&lt;-years[i] # loop over year
+}
+
+year_data
+```
+
+```
+##   year        year_name
+## 1 2015 The year is 2015
+## 2 2016 The year is 2016
+## 3 2017 The year is 2017
+## 4 2018 The year is 2018
+## 5 2019 The year is 2019
+## 6 2020 The year is 2020
+## 7 2021 The year is 2021
+```
+---
+# Using loops to read in multiple .csv files
+
+Let's say you have multiple data files where you want to perform the same action to each. You can use a for loop to do this. 
+
+In the data folder you will see a subfolder called *cond_data*.  Here I have 3 files of salinity and temperature data collected from Mo'orea from a spatial survey.
+
+Read in one of the files so that you can see what it looks like.
+
+
+``` r
+testdata&lt;-read_csv(here("Week_13", "data", "cond_data","011521_CT316_1pcal.csv"))
+
+glimpse(testdata)
+```
+
+```
+## Rows: 1,474
+## Columns: 3
+## $ date        &lt;dttm&gt; 2021-01-15 08:24:40, 2021-01-15 08:24:50, 2021-01-15 08:2…
+## $ Temperature &lt;dbl&gt; 23.28, 23.28, 23.28, 23.28, 23.28, 23.27, 23.28, 23.28, 23…
+## $ Salinity    &lt;dbl&gt; 34.83656, 34.59268, 34.90039, 34.72214, 34.53604, 34.42168…
+```
+
+---
+# list files in a directory
+
+
+``` r
+# point to the location on the computer of the folder
+CondPath&lt;-here("Week_13", "data", "cond_data")
+
+# list all the files in that path with a specific pattern
+# In this case we are looking for everything that has a .csv in the filename
+
+# you can use regex to be more specific if you are looking for certain patterns in filenames
+files &lt;- dir(path = CondPath,pattern = ".csv")
+
+files
+```
+
+```
+## [1] "011521_CT316_1pcal.csv" "011621_CT316_1pcal.csv" "011721_CT354_1pcal.csv"
+```
+---
+# pre-allocate space for the loop
+Let's calculate the mean temperature and salinity from each file and save it
+
+
+``` r
+# pre-allocate space
+# make an empty dataframe that has one row for each file and 3 columns
+cond_data&lt;-data.frame(matrix(nrow = length(files), ncol = 3))
+# give the dataframe column names
+colnames(cond_data)&lt;-c("filename","mean_temp", "mean_sal")
+
+cond_data
+```
+
+```
+##   filename mean_temp mean_sal
+## 1       NA        NA       NA
+## 2       NA        NA       NA
+## 3       NA        NA       NA
+```
+
+
+
+---
+# for loop
+
+write basic code to calculate a mean and build out
+
+``` r
+raw_data&lt;-read_csv(paste0(CondPath,"/",files[1])) # test by reading in the first file and see if it works
+head(raw_data)
+```
+
+```
+## # A tibble: 6 × 3
+##   date                Temperature Salinity
+##   &lt;dttm&gt;                    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 2021-01-15 08:24:40        23.3     34.8
+## 2 2021-01-15 08:24:50        23.3     34.6
+## 3 2021-01-15 08:25:00        23.3     34.9
+## 4 2021-01-15 08:25:10        23.3     34.7
+## 5 2021-01-15 08:25:20        23.3     34.5
+## 6 2021-01-15 08:25:30        23.3     34.4
+```
+
+``` r
+mean_temp&lt;-mean(raw_data$Temperature, na.rm = TRUE) # calculate a mean
+mean_temp
+```
+
+```
+## [1] 29.19296
+```
+---
+# Turn it into a for loop
+
+
+``` r
+*for (i in 1:length(files)){ # loop over 1:3 the number of files
+  
+  
+} 
+```
+
+--
+
+# Add in the loop over the raw data
+
+
+``` r
+for (i in 1:length(files)){ # loop over 1:3 the number of files 
+
+*raw_data&lt;-read_csv(paste0(CondPath,"/",files[i]))
+*glimpse(raw_data)
+
+} 
+```
+
+```
+## Rows: 1,474
+## Columns: 3
+## $ date        &lt;dttm&gt; 2021-01-15 08:24:40, 2021-01-15 08:24:50, 2021-01-15 08:2…
+## $ Temperature &lt;dbl&gt; 23.28, 23.28, 23.28, 23.28, 23.28, 23.27, 23.28, 23.28, 23…
+## $ Salinity    &lt;dbl&gt; 34.83656, 34.59268, 34.90039, 34.72214, 34.53604, 34.42168…
+```
+
+```
+## Rows: 874
+## Columns: 3
+## $ date        &lt;dttm&gt; 2021-01-16 08:16:00, 2021-01-16 08:16:10, 2021-01-16 08:1…
+## $ Temperature &lt;dbl&gt; 23.59, 23.60, 23.61, 23.60, 23.60, 23.59, 23.59, 23.59, 23…
+## $ Salinity    &lt;dbl&gt; 34.04744, 33.96974, 33.93468, 33.91809, 33.87572, 33.85311…
+```
+
+```
+## Rows: 1,004
+## Columns: 3
+## $ date        &lt;dttm&gt; 2021-01-17 08:20:00, 2021-01-17 08:20:10, 2021-01-17 08:2…
+## $ Temperature &lt;dbl&gt; 23.73000, 23.72900, 23.73000, 23.73000, 23.73000, 23.73000…
+## $ Salinity    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, 33.48506, 33.47455, 33.45649, …
+```
+
+---
+# Add in the columns
+
+First, add in the filename for each row
+
+``` r
+for (i in 1:length(files)){ # loop over 1:3 the number of files 
+
+raw_data&lt;-read_csv(paste0(CondPath,"/",files[i]))
+*#glimpse(raw_data)
+
+*cond_data$filename[i]&lt;-files[i]
+  
+} 
+
+cond_data
+```
+
+```
+##                 filename mean_temp mean_sal
+## 1 011521_CT316_1pcal.csv        NA       NA
+## 2 011621_CT316_1pcal.csv        NA       NA
+## 3 011721_CT354_1pcal.csv        NA       NA
+```
+---
+# Add in means
+
+
+``` r
+for (i in 1:length(files)){ # loop over 1:3 the number of files 
+
+raw_data&lt;-read_csv(paste0(CondPath,"/",files[i]))
+#glimpse(raw_data)
+
+cond_data$filename[i]&lt;-files[i]
+*cond_data$mean_temp[i]&lt;-mean(raw_data$Temperature, na.rm =TRUE)
+*cond_data$mean_sal[i]&lt;-mean(raw_data$Salinity, na.rm =TRUE)
+} 
+
+cond_data
+```
+
+```
+##                 filename mean_temp mean_sal
+## 1 011521_CT316_1pcal.csv  29.19296 33.71883
+## 2 011621_CT316_1pcal.csv  29.72033 33.25244
+## 3 011721_CT354_1pcal.csv  29.22022 32.99949
+```
+---
+# {purrr}
+
+[purrr cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf)
+
+Now, I will teach you to do the exact same thing, but with tidyverse style language.
+
+*"purrr enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. If you’ve never heard of FP before, the best place to start is the family of map() functions which allow you to replace many for loops with code that is both more succinct and easier to read. The best place to learn about the map() functions is the [iteration chapter](https://r4ds.had.co.nz/iteration.html) in R for data science."*
+
+
+" ...it’s designed to make your pure functions purrr." - Hadley Wickham
+
+.center[
+&lt;img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKyS_Q6XsvEX9b07wgTLNaQe8yIZRDCqg_1Q&amp;usqp=CAU"/&gt;]
+
+
+---
+# map functions
+
+The pattern of looping over a vector, doing something to each element and saving the results is so common that the purrr package provides a family of functions to do it for you. There is one function for each type of output:
+
+- `map()` makes a list.
+- `map_lgl()` makes a logical vector.
+- `map_int()` makes an integer vector.
+- `map_dbl()` makes a double vector.
+- `map_chr()` makes a character vector.
+- `map_df()` makes a dataframe
+
+Each function takes a vector as input, applies a function to each piece, and then returns a new vector that’s the same length (and has the same names) as the input.
+
+.center[&lt;img src="https://d33wubrfki0l68.cloudfront.net/12f6af8404d9723dff9cc665028a35f07759299d/d0d9a/diagrams/functionals/map-list.png", width=35%/&gt;]
+
+.foot-note[
+[R4DS](https://r4ds.had.co.nz/iteration.html)
+]
+---
+# Simple example
+
+There 3 ways to do the same thing in a map() function
+
+--
+
+**Use a canned function that already exists**
+
+Let's calculate the mean from a set of random numbers and do it 10 times
+
+Create a vector from 1:10
+
+``` r
+*1:10 # a vector from 1 to 10 (we are going to do this 10 times)
+```
+
+--
+for each time 1:10 make a vector of 15 random numbers based on a normal distribution
+
+``` r
+1:10 %&gt;% # a vector from 1 to 10 (we are going to do this 10 times) %&gt;% # the vector to iterate over
+* map(rnorm, n = 15) # calculate 15 random numbers based on a normal distribution in a list
+```
+
+```
+## [[1]]
+##  [1]  0.63627350  1.84318880  0.58165387  1.20375293  0.70452035  0.50438270
+##  [7]  0.24028303 -0.77627710  1.81563764  1.69460406  1.27349498  1.69396317
+## [13] -0.01750489  1.64371456  2.66383434
+## 
+## [[2]]
+##  [1] 3.6830580 1.5550526 2.4668490 0.8622739 1.5887057 3.0663406 2.9673063
+##  [8] 3.2814504 2.2729671 0.4138582 1.4715292 1.0675683 3.3427693 4.4336339
+## [15] 3.5739821
+## 
+## [[3]]
+##  [1] 3.8233869 3.0294491 2.8564623 2.2400808 2.7228973 3.9014871 4.0369809
+##  [8] 2.1924172 4.4474979 2.0026606 1.4831392 0.9673925 2.5521663 0.7803028
+## [15] 2.4757847
+## 
+## [[4]]
+##  [1] 3.873500 4.015376 3.770453 3.825209 2.124606 4.096950 3.794978 2.875429
+##  [9] 4.888600 2.868553 5.740059 3.267432 3.638672 3.470234 3.285242
+## 
+## [[5]]
+##  [1] 5.991379 6.759612 4.495785 2.144654 5.362129 3.738392 5.679163 5.745403
+##  [9] 6.359250 5.134903 4.950917 4.810028 5.083624 5.469211 5.847279
+## 
+## [[6]]
+##  [1] 4.975750 5.472474 7.001211 7.917869 4.242057 6.515717 5.065444 6.732732
+##  [9] 6.500813 7.581920 5.627423 6.594337 6.342349 6.734479 5.405790
+## 
+## [[7]]
+##  [1] 7.649820 4.792255 5.782652 6.563131 5.792316 7.195287 7.473397 6.078625
+##  [9] 5.468222 7.382269 6.915435 6.876613 7.713224 7.201985 5.222160
+## 
+## [[8]]
+##  [1]  8.471988  7.106900 10.200869  9.390877  7.662637  8.254815  8.585119
+##  [8]  8.446654  9.444374  6.205817  7.997111  8.345838  7.801715  9.692399
+## [15]  8.977359
+## 
+## [[9]]
+##  [1]  8.016279  8.739078  9.416794  6.975689  8.396199  9.763490  9.773395
+##  [8]  8.001455  9.906935  8.725477  8.384076 10.592794  8.640465  8.676965
+## [15]  9.579720
+## 
+## [[10]]
+##  [1] 10.133294 10.971573 10.646057  8.673249 12.171627  9.657969  9.696029
+##  [8] 10.036750 11.199087  9.521296 10.722587  9.854809  9.698136 11.349753
+## [15]  9.973541
+```
+
+---
+# Simple example
+
+Calculate the mean from each list
+
+``` r
+1:10 %&gt;% # a vector from 1 to 10 (we are going to do this 10 times) %&gt;% # the vector to iterate over
+  map(rnorm, n = 15)  %&gt;% # calculate 15 random numbers based on a normal distribution in a list 
+* map_dbl(mean) # calculate the mean. It is now a vector which is type "double"
+```
+
+```
+##  [1] 0.8779013 1.5633600 2.7064257 4.2129722 4.9859954 6.1514971 6.8799598
+##  [8] 8.3827268 8.7372688 9.5216853
+```
+
+---
+# Same thing different notation...
+
+**Make your own function**
+
+
+``` r
+1:10 %&gt;% # list 1:10
+  map(function(x) rnorm(15, x)) %&gt;% # make your own function
+  map_dbl(mean)
+```
+
+```
+##  [1] 0.5535984 2.0105936 3.2298189 3.6852747 5.0480201 6.0683661 7.3486015
+##  [8] 7.8148268 8.8883847 9.7846252
+```
+
+--
+
+**Use a formula when you want to change the arguments within the function**
+
+
+``` r
+1:10 %&gt;%
+  map(~ rnorm(15, .x)) %&gt;% # changes the arguments inside the function
+  map_dbl(mean)
+```
+
+```
+##  [1]  0.9272143  2.3133034  2.9671588  3.6149237  4.7561265  6.3374037
+##  [7]  6.6504475  7.7555101  8.7303578 10.0239409
+```
+
+
+---
+# Bring in files using purrr instead of a for loop
+
+Reminder: find the files
+
+``` r
+# point to the location on the computer of the folder
+CondPath&lt;-here("Week_13", "data", "cond_data")
+files &lt;- dir(path = CondPath,pattern = ".csv")
+
+files
+```
+
+```
+## [1] "011521_CT316_1pcal.csv" "011621_CT316_1pcal.csv" "011721_CT354_1pcal.csv"
+```
+
+--
+Or, we can get the full file names in one less step by doing this...
+
+
+``` r
+files &lt;- dir(path = CondPath,pattern = ".csv", full.names = TRUE)
+#save the entire path name
+files
+```
+
+```
+## [1] "C:/Users/nyssa/Desktop/Repositories/Fall_2024/Week_13/data/cond_data/011521_CT316_1pcal.csv"
+## [2] "C:/Users/nyssa/Desktop/Repositories/Fall_2024/Week_13/data/cond_data/011621_CT316_1pcal.csv"
+## [3] "C:/Users/nyssa/Desktop/Repositories/Fall_2024/Week_13/data/cond_data/011721_CT354_1pcal.csv"
+```
+
+---
+# read in the files
+
+Next, read in the files using map instead of a for loop while retaining the filename as a column. 
+
+
+
+``` r
+data&lt;-files %&gt;%
+  set_names()%&gt;% # set's the id of each list to the file name
+  map_df(read_csv,.id = "filename") # map everything to a dataframe and put the id in a column called filename
+
+data
+```
+
+```
+## # A tibble: 3,352 × 4
+##    filename                             date                Temperature Salinity
+##    &lt;chr&gt;                                &lt;dttm&gt;                    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:24:40        23.3     34.8
+##  2 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:24:50        23.3     34.6
+##  3 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:25:00        23.3     34.9
+##  4 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:25:10        23.3     34.7
+##  5 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:25:20        23.3     34.5
+##  6 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:25:30        23.3     34.4
+##  7 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:25:40        23.3     34.3
+##  8 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:25:50        23.3     34.3
+##  9 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:26:00        23.3     34.2
+## 10 C:/Users/nyssa/Desktop/Repositories… 2021-01-15 08:26:10        23.3     34.1
+## # ℹ 3,342 more rows
+```
+
+---
+# calculate means
+
+Now we have a regular dataframe and we can calculate means in the way we already know how! group_by filename and use summarize
+
+
+``` r
+data&lt;-files %&gt;%
+  set_names()%&gt;% # set's the id of each list to the file name
+  map_df(read_csv,.id = "filename") %&gt;% # map everything to a dataframe and put the id in a column called filename
+* group_by(filename) %&gt;%
+* summarise(mean_temp = mean(Temperature, na.rm = TRUE),
+*           mean_sal = mean(Salinity,na.rm = TRUE))
+
+data
+```
+
+```
+## # A tibble: 3 × 3
+##   filename                                                    mean_temp mean_sal
+##   &lt;chr&gt;                                                           &lt;dbl&gt;    &lt;dbl&gt;
+## 1 C:/Users/nyssa/Desktop/Repositories/Fall_2024/Week_13/data…      29.2     33.7
+## 2 C:/Users/nyssa/Desktop/Repositories/Fall_2024/Week_13/data…      29.7     33.3
+## 3 C:/Users/nyssa/Desktop/Repositories/Fall_2024/Week_13/data…      29.2     33.0
+```
+
+---
+# Other uses
+ 
+Maps and loops are awesome for more complicated processes too. For example, you could plot something and save it automatically from each file using similar code.
+
+Read these chapters in [R4DS](https://r4ds.had.co.nz/iteration.html) and [Advanced R](https://adv-r.hadley.nz/functionals.html) to see all the fancy shortcuts you can do with the purrr package
+---
+# Homework
+
+You have a set of 4 .csv files in data/homework. Each of these files is a timeseries of temperature and light data collected in tide pools in Oregon by Jenn Fields. Your goal is to bring in all 4 files and calculate the mean and standard deviation of both temperature (Temp.C) and light (Intensity.lux) for each tide pool.  Use **both** a for loop and map() functions in your script. (Basically, do it twice). Due Tuesday at 1pm. 
+
+.center[**Data Dictionary**]
+
+|Variable Name | Description|
+|:----------:|:------------|
+|PoolID| ID of the pool|
+|Foundation_spp| Surfgrass or mussel dominated pool|
+|Removal_Control| Was it a removal or control treatment|
+|Date.Time| Date and time|
+|Temp.C| Temperature in degrees C|
+|Intensity.lux| Light level in lux|
+|LoggerDepth| Depth of the logger in meters|
+
+---
+# Totally awesome R package
+
+[{gganatogram}](https://r-charts.com/miscellaneous/gganatogram/)
+
+Use R for anatomy!!
+
+
+``` r
+Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")
+## You might get a weird warning from this package about converting a warning to error.  This will get rid of that
+remotes::install_github("jespermaag/gganatogram")
+```
+
+---
+# gganatogram
+
+
+``` r
+library(gganatogram)
+gganatogram(data = hgFemale_key, 
+            organism = "human", sex = "female",
+            fill = "colour", fillOutline = "#a6bddb") +
+  theme_void() + 
+  coord_fixed()
+```
+
+![](23_IterativeCoding_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+---
+
+# gganatogram
+
+Just the nervous system!
+
+
+``` r
+hgMale_key %&gt;%
+  filter(type %in% "nervous_system") %&gt;%
+  gganatogram(organism = "human", sex = "male",
+              fill = "colour", outline = FALSE) +
+  theme_void() + 
+  coord_fixed()
+```
+
+![](23_IterativeCoding_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+
+---
+# gganatogram
+
+A mouse!!
+
+
+``` r
+gganatogram(data = mmFemale_key,
+            organism = "mouse", sex = "female", 
+            fillOutline = "#a6bddb", fill = "colour") +
+  theme_void() +
+  coord_fixed()
+```
+
+![](23_IterativeCoding_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+---
+# gganatogram
+
+A cell!!!
+
+
+``` r
+gganatogram(data = cell_key$cell,
+            organism = "cell",
+            fillOutline = "#a6bddb", fill = "colour") +
+  theme_void() +
+  coord_fixed()
+```
+
+![](23_IterativeCoding_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+---
+# gganatogram
+
+[See more here](https://github.com/jespermaag/gganatogram)
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Many slides modified from the following resources:   
+
+[R4DS](https://r4ds.had.co.nz/iteration.html) and [Advanced R](https://adv-r.hadley.nz/functionals.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "15:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
