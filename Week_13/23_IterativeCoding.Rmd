@@ -61,11 +61,26 @@ green <- "#007965"
 Working with iterative data  
 
 1. Quiz!
+1. Final Project Review
 1. for loops
 2. map functions from purrr (more cat puns!)
 
 
 <img src = "https://paulvanderlaken.files.wordpress.com/2018/12/pp550x5501.jpg", width=40%/>
+
+---
+# Final Project review
+
+1. Make sure to read the instructions very carefully 
+  - Note: your final project needs to be in a brand new, stand-along repository within the OCN 682 Github Organization (aka where all our repos are now) 
+  
+--
+
+2. Your completed repo for your final project is due at 1pm on 12/10, regardless of when you present. NO changes will be allowed after class has started so that it is fair to everyone.  
+
+--
+3. Sign up for a presentation time [here](https://docs.google.com/spreadsheets/d/1CW4oauRyRBKb4bs_lzfC--L2SCXdEC5B3_27vmOXfx8/edit?gid=0#gid=0) 
+
 ---
 # Set-up your script
 
@@ -128,11 +143,9 @@ Create an empty dataframe called `year_data` with columns for `year` and `year_n
 
 ```{r}
 #Pre-allocate space for the for loop
-# empty matrix
-year_data<-data.frame(matrix(ncol = 2, nrow = length(years)))
-
-# add column names
-colnames(year_data)<-c("year", "year_name")
+# empty matrix that is as long as the years vector
+ year_data<-tibble(year =  rep(NA, length(years)),  # column name for year
+                   year_name = rep(NA, length(years))) # column name for the year name
 
 year_data
 ```
@@ -202,9 +215,11 @@ Let's calculate the mean temperature and salinity from each file and save it
 ```{r}
 # pre-allocate space
 # make an empty dataframe that has one row for each file and 3 columns
-cond_data<-data.frame(matrix(nrow = length(files), ncol = 3))
-# give the dataframe column names
-colnames(cond_data)<-c("filename","mean_temp", "mean_sal")
+ cond_data<-tibble(filename =  rep(NA, length(files)),  # column name for year
+                   mean_temp = rep(NA, length(files)), # column name for the mean temperature
+                   mean_sal = rep(NA, length(files)), # column name for the mean salinity
+                   ) # column name for the year name
+
 
 cond_data
 ```
@@ -444,6 +459,12 @@ You have a set of 4 .csv files in data/homework. Each of these files is a timese
 |Temp.C| Temperature in degrees C|
 |Intensity.lux| Light level in lux|
 |LoggerDepth| Depth of the logger in meters|
+
+---
+# Class Evaluations
+
+Please take 10 minutes to do this now.
+[Link Here](https://www.hawaii.edu/ces/)
 
 ---
 # Totally awesome R package
