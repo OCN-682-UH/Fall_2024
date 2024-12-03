@@ -443,6 +443,7 @@ data
 Maps and loops are awesome for more complicated processes too. For example, you could plot something and save it automatically from each file using similar code.
 
 Read these chapters in [R4DS](https://r4ds.had.co.nz/iteration.html) and [Advanced R](https://adv-r.hadley.nz/functionals.html) to see all the fancy shortcuts you can do with the purrr package
+
 ---
 # Homework
 
@@ -461,12 +462,7 @@ You have a set of 4 .csv files in data/homework. Each of these files is a timese
 |LoggerDepth| Depth of the logger in meters|
 
 ---
-# Class Evaluations
 
-Please take 10 minutes to do this now.
-[Link Here](https://www.hawaii.edu/ces/)
-
----
 # Totally awesome R package
 
 [{gganatogram}](https://r-charts.com/miscellaneous/gganatogram/)
@@ -535,6 +531,17 @@ gganatogram(data = cell_key$cell,
 # gganatogram
 
 [See more here](https://github.com/jespermaag/gganatogram)
+
+
+---
+# Class Evaluations
+
+Please take 10 minutes to do this now.
+[Link Here](https://www.hawaii.edu/ces/)
+- These class evals are really important to both me and the department.
+
+### I uploaded the lecture on intro modeling as an online class so that you have it available to you before your independent project is due  
+- There is no homework associated with it, but it will be on your quiz and it is super useful to prep you for statistics
 
 
 ---
